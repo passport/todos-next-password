@@ -1,7 +1,15 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { authenticate } from '@/lib/auth'
 
-export default function Home() {
+
+export default async function Home() {
+  var user = await authenticate('session')
+  if (user) {
+    return <h1>Hello, {user.username}</h1>
+  }
+  return <h1>Hello, Next.js!</h1>
+  
   return (
     <main className={styles.main}>
       <div className={styles.description}>
